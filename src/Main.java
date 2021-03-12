@@ -15,54 +15,57 @@ public class Main {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
 		String line= br.readLine();
-		nBooks=Integer.parseInt(line);
-		booksPrice=new int[nBooks];
+		
+		while(line!=null) {
+			nBooks=Integer.parseInt(line);
+			booksPrice=new int[nBooks];
 
-		line=br.readLine();
-		String[] parts= line.split(" ");
+			line=br.readLine();
+			String[] parts= line.split(" ");
 
-		for(int i=0; i<nBooks;i++) {
-			booksPrice[i]= Integer.parseInt(parts[i]);
-		}
-		Arrays.sort(booksPrice);
+			for(int i=0; i<nBooks;i++) {
+				booksPrice[i]= Integer.parseInt(parts[i]);
+			}
+			Arrays.sort(booksPrice);
 
-		line=br.readLine();
-		money=Integer.parseInt(line);
+			line=br.readLine();
+			money=Integer.parseInt(line);
 
-		int price1=0;
-		int price2=0;
-		int count=0;
-		for(int i=0; i<nBooks;i++) {
+			int price1=0;
+			int price2=0;
+			int count=0;
+			for(int i=0; i<nBooks;i++) {
 
-			int numb=money-booksPrice[i];
-			int pos= binarySearch(numb, i);
-			int temp1=0;
-			int temp2=0;
+				int numb=money-booksPrice[i];
+				int pos= binarySearch(numb, i);
+				int temp1=0;
+				int temp2=0;
+				if(pos>=0) {
+					if(booksPrice[i]<booksPrice[pos]) {
+						temp1=booksPrice[i];
+						temp2=booksPrice[pos];
+					}else {
+						temp1=booksPrice[pos];
+						temp2=booksPrice[i];
+					}
 
-			if(pos>=0) {
-				if(booksPrice[i]<booksPrice[pos]) {
-					temp1=booksPrice[i];
-					temp2=booksPrice[pos];
-				}else {
-					temp1=booksPrice[pos];
-					temp2=booksPrice[i];
-				}
+					count++;
 
-				count++;
-
-				if(count==1) {
-					price1=temp1;
-					price2=temp2;			
-				}else if(count>1) {
-					if((temp2-temp1)<(price2-price1)) {
+					if(count==1) {
 						price1=temp1;
-						price2=temp2;	
+						price2=temp2;			
+					}else if(count>1) {
+						if((temp2-temp1)<(price2-price1)) {
+							price1=temp1;
+							price2=temp2;	
+						}
 					}
 				}
-			}
 
+			}
+			bw.write("Peter should buy books whose prices are "+price1+" and "+price2+".\n\n");
+			line=br.readLine();
 		}
-		bw.write("Peter should buy books whose prices are "+price1+" and "+price2+".\n");
 		
 
 
