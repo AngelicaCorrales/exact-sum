@@ -65,6 +65,7 @@ public class Main {
 			}
 			bw.write("Peter should buy books whose prices are "+price1+" and "+price2+".\n\n");
 			line=br.readLine();
+			line=br.readLine();
 		}
 		
 
